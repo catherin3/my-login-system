@@ -1,11 +1,16 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Grid, Button, TextField, Typography, InputAdornment } from '@material-ui/core';
-import { AccountCircle, LockRounded, EmailRounded, Facebook} from '@material-ui/icons';
+import { AccountCircle, LockRounded, EmailRounded, Facebook, Visibility } from '@material-ui/icons';
 import Boogle from './Boogle.png';
 import Bg from './bg.jpg';
 import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
+
+  const [passwordShown, setPasswordShown] = useState(false);
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
   return (
 
@@ -20,15 +25,18 @@ const Login: React.FC = () => {
             <Grid container justify="center" >
               <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
             </Grid>
-            <TextField margin="normal" label="Username or email" style={{ textAlign: "center" }} 
-              InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle/></InputAdornment> }}>
-             </TextField>
+            <TextField margin="normal" label="Username or email" style={{ textAlign: "center" }}
+              InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment> }}>
+            </TextField>
 
-            <TextField margin="normal" label="Password" type="password" style={{ textAlign: "center" }} InputProps={{ startAdornment: <InputAdornment position="start"><LockRounded /></InputAdornment> }}></TextField>
+            <TextField margin="normal" label="Password" type={passwordShown ? "text" : "password"} style={{ textAlign: "center" }}
+             InputProps={{ startAdornment: <InputAdornment position="start"><LockRounded />
+             <Visibility style={{ position: "absolute", right: 0 }} onClick={togglePasswordVisiblity}></Visibility></InputAdornment> }}>
+             </TextField>
 
           </div>
           <div style={{ marginBottom: 400 }}>
-            <Link style={{ marginLeft: 90, fontSize: 12 }} to='/forgotpassword'>Forgot Password?
+            <Link style={{ marginLeft: 100, fontSize: 12 }} to='/forgotpassword'>Forgot Password?
             </Link>
 
             <div style={{ display: 'flex', flexDirection: "column" }}>

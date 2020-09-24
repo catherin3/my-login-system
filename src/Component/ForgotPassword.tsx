@@ -21,8 +21,8 @@ const ForgotPassword: React.FC = () => {
               <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
             </Grid>
             <Typography style={{ textAlign: 'center' }}> Trouble Logging In?</Typography>
-            <Typography style={{ textAlign: 'center', color: '#a4a4a4', fontSize: 15, marginTop: 5 }}>Enter your email, phone, or <br />username and we'll send you a
-          link <br />to get back into your account.
+            <Typography style={{ textAlign: 'center', color: '#7f7f7f', fontSize: 15, marginTop: 5 }}>Enter your email, phone, or <br />username and we'll send you a
+            <br />link to get back into your account.
           </Typography>
             <TextField margin="normal" label="Username or email" style={{ textAlign: "center" }}
               InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment> }}>

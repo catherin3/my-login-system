@@ -15,8 +15,8 @@ const App: React.FC = () => {
 
       <Switch>
         <Route exact path="/" component={Login} />
-        <Route  exact path="/forgotpassword" component={ForgotPassword} />
-        <Route  exact path="/signup" component={Signup} />
+        <Route exact path="/forgotpassword" component={ForgotPassword} />
+        <Route exact path="/signup" component={Signup} />
       </Switch>
 
     </Router>
