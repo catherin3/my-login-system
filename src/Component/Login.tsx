@@ -1,9 +1,9 @@
 import React from 'react';
-import {Grid, Button, TextField, Typography, InputAdornment} from '@material-ui/core';
-import { AccountCircle, LockRounded, EmailRounded, Facebook } from '@material-ui/icons';
+import { Grid, Button, TextField, Typography, InputAdornment } from '@material-ui/core';
+import { AccountCircle, LockRounded, EmailRounded, Facebook} from '@material-ui/icons';
 import Boogle from './Boogle.png';
 import Bg from './bg.jpg';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
 
@@ -20,7 +20,10 @@ const Login: React.FC = () => {
             <Grid container justify="center" >
               <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
             </Grid>
-            <TextField margin="normal" label="Username or email" style={{ textAlign: "center" }} InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment> }}></TextField>
+            <TextField margin="normal" label="Username or email" style={{ textAlign: "center" }} 
+              InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle/></InputAdornment> }}>
+             </TextField>
+
             <TextField margin="normal" label="Password" type="password" style={{ textAlign: "center" }} InputProps={{ startAdornment: <InputAdornment position="start"><LockRounded /></InputAdornment> }}></TextField>
 
           </div>
@@ -30,7 +33,7 @@ const Login: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: "column" }}>
               <Button color="primary" variant="contained" style={{ marginTop: 15 }}>Login</Button>
-              <Typography style={{ fontSize: 13, marginTop: 10, textAlign: "center" }}> Or sign in with</Typography>
+              <Typography style={{ fontSize: 13, marginTop: 10, marginLeft: 50 }}> Or sign in with</Typography>
             </div>
             <div style={{ display: 'flex', flexDirection: "row", padding: 5 }}>
               <EmailRounded style={{ marginLeft: 60 }}></EmailRounded>
@@ -38,8 +41,8 @@ const Login: React.FC = () => {
               <Facebook style={{ marginLeft: 10 }}></Facebook>
             </div>
             <div style={{ display: 'flex', flexDirection: "row", marginTop: 5 }}>
-              <Typography style={{fontSize: 15}}>Don't have an account?</Typography>
-              <Link style={{textDecoration: 'none', fontWeight: 'bold', color: "#3F51B5", fontSize:15}} to='/signup'>
+              <Typography style={{ fontSize: 15 }}>Don't have an account?</Typography>
+              <Link style={{ textDecoration: 'none', fontWeight: 'bold', color: "#3F51B5", fontSize: 15 }} to='/signup'>
                 Sign Up
             </Link>
             </div>
