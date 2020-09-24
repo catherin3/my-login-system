@@ -25,7 +25,7 @@ const Login: React.FC = () => {
             <Grid container justify="center" >
               <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
             </Grid>
-            <TextField margin="normal" label="Username or email" style={{ textAlign: "center" }}
+            <TextField margin="normal" label="Email or Mobile Number" style={{ textAlign: "center" }}
               InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment> }}>
             </TextField>
 
