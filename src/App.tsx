@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './Component/Login';
 import ForgotPassword from './Component/ForgotPassword';
 import Signup from './Component/Signup';
+import Term from './Component/Termandcondition';
 
 const App: React.FC = () => {
 
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Route exact path="/" component={Login} />
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/term" component={Term}/>
       </Switch>
 
     </Router>

@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { Grid, Button, TextField, Typography, InputAdornment } from '@material-ui/core';
-import { AccountCircle, LockRounded, EmailRounded, Facebook, Visibility } from '@material-ui/icons';
+import { AccountCircle, LockRounded, Facebook, Visibility } from '@material-ui/icons';
 import Boogle from './Boogle.png';
 import Bg from './bg.jpg';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ const Login: React.FC = () => {
   return (
 
     <div>
+      <form>
       <Grid container style={{ minWidth: '100vh' }}>
         <Grid item xs={12} sm={6}>
           <img src={Bg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
@@ -25,11 +26,11 @@ const Login: React.FC = () => {
             <Grid container justify="center" >
               <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
             </Grid>
-            <TextField margin="normal" label="Email or Mobile Number" style={{ textAlign: "center" }}
+            <TextField margin="normal" label="Email" style={{ textAlign: "center" }}
               InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment> }}>
             </TextField>
 
-            <TextField margin="normal" label="Password" type={passwordShown ? "text" : "password"} style={{ textAlign: "center" }}
+            <TextField margin="normal" label="Password"  type={passwordShown ? "text" : "password"} style={{ textAlign: "center" }}
              InputProps={{ startAdornment: <InputAdornment position="start"><LockRounded />
              <Visibility style={{ position: "absolute", right: 0 }} onClick={togglePasswordVisiblity}></Visibility></InputAdornment> }}>
              </TextField>
@@ -41,12 +42,10 @@ const Login: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: "column" }}>
               <Button color="primary" variant="contained" style={{ marginTop: 15 }}>Login</Button>
-              <Typography style={{ fontSize: 13, marginTop: 10, marginLeft: 50 }}> Or sign in with</Typography>
+              <Typography style={{ fontSize: 17, textAlign: "center", marginRight: 10,marginTop: 10 }}> Or</Typography>
             </div>
             <div style={{ display: 'flex', flexDirection: "row", padding: 5 }}>
-              <EmailRounded style={{ marginLeft: 60 }}></EmailRounded>
-
-              <Facebook style={{ marginLeft: 10 }}></Facebook>
+            <Facebook style={{marginLeft: 15}}/><Link style={{color: '#3b5998', textDecoration: 'none',marginTop: 3}}to="/">Login with Facebook </Link>
             </div>
             <div style={{ display: 'flex', flexDirection: "row", marginTop: 5 }}>
               <Typography style={{ fontSize: 15 }}>Don't have an account?</Typography>
@@ -56,8 +55,8 @@ const Login: React.FC = () => {
             </div>
           </div>
         </Grid>
-
       </Grid>
+      </form>
     </div>
 
   );
