@@ -5,7 +5,8 @@ import Boogle from './Boogle.png';
 import Bg from './bg.jpg';
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
+
 
 function validateEmail(value: string) {
     let error;
@@ -30,7 +31,7 @@ const validatePassword = (values: string) => {
     return error;
 };
 
-const validateConfirmPassword = (pass: any, value: any) => {
+const validateConfirmPassword = (pass: string, value: string) => {
 
     let error = "";
     if (pass && value) {
@@ -60,17 +61,21 @@ const Signup: React.FC = () => {
                 {({ errors, touched }) => (
                     <Form>
                         <Grid container style={{ minWidth: '100vh' }}>
+                            <Link style={{ position: "absolute", right: 0, fontSize: 18, marginTop: 27, marginRight: 10 }} to='/'>Login
+                                 </Link>
                             <Grid item xs={12} sm={6}>
                                 <img src={Bg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+
                             </Grid>
                             <Grid container item xs={12} sm={6} alignItems="center" direction="column" justify="space-around" style={{ padding: 10 }}>
                                 <div />
+
                                 <div style={{ display: 'flex', flexDirection: "column" }}>
                                     <Grid container justify="center" >
                                         <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
 
                                     </Grid>
-                                    <Field margin="normal" name="Email" type="text" placeholder="Email" validate={validateEmail} style={{ marginTop: 20 }}></Field>
+                                    <Field margin="normal" name="Email" type="text" placeholder="Email" validate={validateEmail} style={{ marginTop: 20 }} ></Field>
                                     <ErrorMessage name="Email">
                                         {msg => <div style={{ color: 'red' }}>{msg}</div>}
                                     </ErrorMessage>
@@ -101,8 +106,6 @@ const Signup: React.FC = () => {
                                     <div style={{ display: 'flex', flexDirection: "column" }}>
                                         <Button color="primary" variant="contained" style={{ marginTop: 15 }} type="submit">Sign Up</Button>
                                     </div>
-
-
                                 </div>
                             </Grid>
                         </Grid>
