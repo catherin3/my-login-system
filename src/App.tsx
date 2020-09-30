@@ -8,6 +8,7 @@ import Login from './Component/Login';
 import ForgotPassword from './Component/ForgotPassword';
 import Signup from './Component/Signup';
 import Term from './Component/Termandcondition';
+import Home from './Component/Home';
 
 const App: React.FC = () => {
 
@@ -19,6 +20,7 @@ const App: React.FC = () => {
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/term" component={Term}/>
+        <Route exact path="/home" component={Home}/>
       </Switch>
 
     </Router>

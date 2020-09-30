@@ -1,119 +1,102 @@
 import React from 'react';
-import { Grid, Button, Checkbox, Typography } from '@material-ui/core';
-// import { AccountCircle, LockRounded, Visibility } from '@material-ui/icons';
+import { Button, Typography, Container, TextField, makeStyles, Checkbox } from '@material-ui/core';
 import Boogle from './Boogle.png';
 import Bg from './bg.jpg';
-import { Link } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-
-
-function validateEmail(value: string) {
-    let error;
-    if (!value) {
-        error = '*Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-        error = 'Invalid email address';
-    }
-    return error;
-}
-
-const validatePassword = (values: string) => {
-    let error = "";
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    if (!values) {
-        error = "*Required";
-    } else if (values.length < 8) {
-        error = "*Password must be 8 characters long.";
-    } else if (!passwordRegex.test(values)) {
-        error = "*Requirement not met";
-    }
-    return error;
-};
-
-const validateConfirmPassword = (pass: string, value: string) => {
-
-    let error = "";
-    if (pass && value) {
-        if (pass !== value) {
-            error = "Password not matched";
-        }
-    }
-    return error;
-};
+import { Link, useHistory } from 'react-router-dom';
+// import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const Signup: React.FC = () => {
 
+    let history = useHistory();
+    function handleClick() {
+        history.push("/");
+    }
+
+    const useStyles = makeStyles((theme) => ({
+        paper: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+        form: {
+            width: '100%', // Fix IE 11 issue.
+            marginTop: theme.spacing(1),
+        },
+        submit: {
+            margin: theme.spacing(3, 0, 2),
+        },
+        root: {
+            backgroundImage: `url(${Bg})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+        }
+    }));
+
+    const classes = useStyles();
     return (
+        <div className={classes.root}>
+            <Container component="main" maxWidth="xs" style={{ minHeight: '100vh' }} >
+                <div className={classes.paper}>
+                    <img src={Boogle} style={{ width: 130, marginTop: 50 }} alt="brand" />
 
-        <div>
-            <Formik
-                initialValues={{
-                    Password: '',
-                    ConfirmPassword: '',
-                    Email: '',
-                }}
-                onSubmit={values => {
-                    // same shape as initial values
-                    console.log(values);
-                }}
-            >
-                {({ errors, touched }) => (
-                    <Form>
-                        <Grid container style={{ minWidth: '100vh' }}>
-                            <Link style={{ position: "absolute", right: 0, fontSize: 18, marginTop: 27, marginRight: 10 }} to='/'>Login
-                                 </Link>
-                            <Grid item xs={12} sm={6}>
-                                <img src={Bg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+                    <Typography component="h1" variant="h5">
+                        Sign up
+                        </Typography>
+                    <form className={classes.form}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus>
 
-                            </Grid>
-                            <Grid container item xs={12} sm={6} alignItems="center" direction="column" justify="space-around" style={{ padding: 10 }}>
-                                <div />
+                        </TextField>
 
-                                <div style={{ display: 'flex', flexDirection: "column" }}>
-                                    <Grid container justify="center" >
-                                        <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="password"
+                            label="Password"
+                            name="password"
+                            type="password"
+                            autoComplete="password"
+                            autoFocus >
 
-                                    </Grid>
-                                    <Field margin="normal" name="Email" type="text" placeholder="Email" validate={validateEmail} style={{ marginTop: 20 }} ></Field>
-                                    <ErrorMessage name="Email">
-                                        {msg => <div style={{ color: 'red' }}>{msg}</div>}
-                                    </ErrorMessage>
+                        </TextField>
 
-                                    <Field margin="normal" name="Password" type="Password" placeholder="Password" validate={validatePassword} style={{ marginTop: 20 }}></Field>
-                                    <Typography style={{ fontSize: 12 }}>*Password must contain at least 8 characters, one uppercase,<br /> one number and one special case character.</Typography>
-                                    <ErrorMessage name="Password">
-                                        {msg => <div style={{ color: 'red' }}>{msg}</div>}
-                                    </ErrorMessage>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="confirmpassword"
+                            label="Confirm Password"
+                            name="confirmpassword"
+                            type="password"
+                            autoComplete="confirmpassword"
+                            autoFocus >
 
-                                    <Field margin="normal" name="ConfirmPassword" placeholder="Confirm Password" type="Password" validate={(value: any) =>
-                                        validateConfirmPassword(value.password, value)
-                                    } style={{ marginTop: 20 }}></Field>
-                                    <ErrorMessage name="ConfirmPassword">
-                                        {msg => <div style={{ color: 'red' }}>{msg}</div>}
-                                    </ErrorMessage>
+                        </TextField>
 
-                                </div>
-
-                                <div style={{ display: 'flex', flexDirection: "row" }}>
-                                    <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} style={{ marginLeft: 130 }} ></Checkbox>
-                                    <Typography style={{ marginRight: 120, marginTop: 10, fontSize: 14 }} >
-                                        By signing up you accept our<Link to="/term"> Terms and Conditions</Link>
-                                    </Typography>
-                                </div>
-
-                                <div style={{ marginBottom: 400 }}>
-                                    <div style={{ display: 'flex', flexDirection: "column" }}>
-                                        <Button color="primary" variant="contained" style={{ marginTop: 15 }} type="submit">Sign Up</Button>
-                                    </div>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Form>
-                )}
-            </Formik>
+                        <div style={{ display: 'flex', flexDirection: "row" }}>
+                            <Checkbox style={{}} />
+                            <Typography>By signing up, you agree to our <Link to="/term">Terms and Conditions</Link></Typography>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: "column" }}>
+                            <Button color="primary" variant="contained" style={{ marginTop: 15 }}>Sign up</Button>
+                            <Button type="button" color="primary" variant="contained" style={{ marginTop: 15 }} onClick={handleClick}>Back to Login</Button>
+                        </div>
+                    </form>
+                </div>
+            </Container>
         </div>
-
     );
 }
 

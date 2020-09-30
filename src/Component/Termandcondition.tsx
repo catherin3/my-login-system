@@ -1,22 +1,36 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Typography, Button, makeStyles, Container } from '@material-ui/core';
 import Bg from './bg.jpg';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Termandcondition: React.FC = () => {
 
+    let history = useHistory();
+
+    function handleClick() {
+        history.push("/");
+    }
+
+    const useStyles = makeStyles((theme) => ({
+        paper: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          },
+        root: {
+            backgroundImage: `url(${Bg})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+        },
+    }));
+    const classes = useStyles();
     return (
 
-        <div>
-            <Grid container style={{ minWidth: '100vh' }}>
-                <Grid item xs={12} sm={6}>
-                    <img src={Bg} style={{ width: '100%', height: '155%', objectFit: 'cover' }} alt="" />
-                </Grid>
-                <Grid container item xs={12} sm={6} direction="column" style={{ padding: 10 }}>
-                    <div />
+        <div className={classes.root}>
+            <Container component="main" maxWidth="xs" style={{ minHeight: '100vh' }} >
+            <div className={classes.paper}>
                     <h2 style={{ alignItems: "center" }}>Terms and Conditions</h2>
-                    <Link style={{ position:"absolute",right: 0, fontSize: 18, marginTop: 27, marginRight: 10 }} to='/signup'>Back
-                     </Link>
                     <Typography>
                         You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions.
                         If you do not agree with all of these Terms and Conditions, then you are expressly prohibited from using the Site and you
@@ -32,8 +46,11 @@ const Termandcondition: React.FC = () => {
                       <br /><br />Accordingly, those persons who choose to access the Site from other locations do so on their own initiative and are solely
                       responsible for compliance with local laws, if and to the extent local laws are applicable.
                     </Typography>
-                </Grid>
-            </Grid>
+                    <Button  color="primary" variant="contained" style={{ marginTop: 15 }} onClick={handleClick}>
+                    Back to login
+                    </Button>
+                </div>
+            </Container>
         </div>
 
     );

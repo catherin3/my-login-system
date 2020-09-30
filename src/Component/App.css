@@ -1,0 +1,13 @@
+.App {
+    text-align: center;
+  }
+  
+
+  .links{
+    width: 12%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+  }
+ 

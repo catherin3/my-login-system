@@ -1,64 +1,141 @@
-import React,{useState} from 'react';
-import { Grid, Button, TextField, Typography, InputAdornment } from '@material-ui/core';
-import { AccountCircle, LockRounded, Facebook, Visibility } from '@material-ui/icons';
+import React, { useState } from 'react';
+import { Grid, Button, TextField, Typography, makeStyles, Container, Checkbox, FormControlLabel, Box } from '@material-ui/core';
 import Boogle from './Boogle.png';
 import Bg from './bg.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" style={{ marginLeft: 150 }}>
+      {'Copyright © 2020'}
+    </Typography>
+  );
+}
+function Terms() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="left">
+      <Link to={'/term'} style={{ textAlign: 'left', textDecoration: 'none', fontWeight: 'bold', color: '#484848', marginLeft: 5 }}>Terms
+    </Link>
+    </Typography>
+
+  );
+}
+
+function About() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="left">
+      <Link to={'/about'} style={{ textAlign: 'left', textDecoration: 'none', fontWeight: 'bold', color: '#484848' }}>About
+    </Link>
+    </Typography>
+
+  );
+}
 
 const Login: React.FC = () => {
 
-  const [passwordShown, setPasswordShown] = useState(false);
-  const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-  };
+  const [passwordShown] = useState(false);
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    form: {
+      width: '100%', // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+    root: {
+      backgroundImage: `url(${Bg})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+    }
+  }));
 
+
+let history = useHistory();
+function handleClick() {
+    history.push("/home");
+}
+
+
+  const classes = useStyles();
   return (
+    <div className={classes.root} >
+      <Container component="main" maxWidth="xs" style={{ minHeight: '100vh',  }} >
+        <div className={classes.paper}>
+          <img src={Boogle} style={{ width: 130, marginTop: 50 }} alt="brand" />
 
-    <div>
-      <form>
-      <Grid container style={{ minWidth: '100vh' }}>
-        <Grid item xs={12} sm={6}>
-          <img src={Bg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
-        </Grid>
-        <Grid container item xs={12} sm={6} alignItems="center" direction="column" justify="space-around" style={{ padding: 10 }}>
-          <div />
-          <div style={{ display: 'flex', flexDirection: "column" }}>
-            <Grid container justify="center" >
-              <img src={Boogle} style={{ width: 130, marginTop: 120 }} alt="brand" />
-            </Grid>
-            <TextField margin="normal" label="Email" style={{ textAlign: "center" }}
-              InputProps={{ startAdornment: <InputAdornment position="start"><AccountCircle /></InputAdornment> }}>
+          <Typography component="h1" variant="h5">
+            Login
+      </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={passwordShown ? "text" : "password"}
+              id="password"
+              autoComplete="current-password">
             </TextField>
-
-            <TextField margin="normal" label="Password"  type={passwordShown ? "text" : "password"} style={{ textAlign: "center" }}
-             InputProps={{ startAdornment: <InputAdornment position="start"><LockRounded />
-             <Visibility style={{ position: "absolute", right: 0 }} onClick={togglePasswordVisiblity}></Visibility></InputAdornment> }}>
-             </TextField>
-
-          </div>
-          <div style={{ marginBottom: 400 }}>
-            <Link style={{ marginLeft: 100, fontSize: 12 }} to='/forgotpassword'>Forgot Password?
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={handleClick}
+            >
+              Sign In
+        </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link to='/forgotpassword'>Forgot Password?
             </Link>
+              </Grid>
+              <Grid item>
+                <Typography style={{ fontSize: 14 }}>Don't have an account? <Link style={{ textDecoration: 'none', fontWeight: 'bold', color: "#3F51B5", fontSize: 14 }} to='/signup'>
+                  Sign Up
+            </Link></Typography>
+              </Grid>
+              <div style={{ display: 'flex', flexDirection: "column" }}>
+                <Typography style={{ textAlign: 'center', marginTop: 10 }}>OR</Typography>
+                <Button color="primary" variant="contained" style={{ marginTop: 15, width: 390 }}>
+                  <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }}>Sign in with Facebook</Link>
+                </Button>
 
-            <div style={{ display: 'flex', flexDirection: "column" }}>
-              <Button color="primary" variant="contained" style={{ marginTop: 15 }}>Login</Button>
-              <Typography style={{ fontSize: 17, textAlign: "center", marginRight: 10,marginTop: 10 }}> Or</Typography>
-            </div>
-            <div style={{ display: 'flex', flexDirection: "row", padding: 5 }}>
-            <Facebook style={{marginLeft: 15}}/><Link style={{color: '#3b5998', textDecoration: 'none',marginTop: 3}}to="/">Login with Facebook </Link>
-            </div>
-            <div style={{ display: 'flex', flexDirection: "row", marginTop: 5 }}>
-              <Typography style={{ fontSize: 15 }}>Don't have an account?</Typography>
-              <Link style={{ textDecoration: 'none', fontWeight: 'bold', color: "#3F51B5", fontSize: 15 }} to='/signup'>
-                Sign Up
-            </Link>
-            </div>
-          </div>
-        </Grid>
-      </Grid>
-      </form>
+              </div>
+            </Grid>
+          </form>
+        </div>
+        <Box mt={10} display="flex" flexDirection="row">
+          <About />
+          <Terms />
+          <Copyright />
+        </Box>
+      </Container>
     </div>
-
   );
 }
 
