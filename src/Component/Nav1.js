@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import { makeStyles, AppBar, Toolbar, Typography, IconButton, Grid, Card, CardMedia, CardContent, CircularProgress, fade, TextField } from '@material-ui/core';
+import React, { useEffect, useState , useCallback} from 'react';
+import { makeStyles, AppBar, Toolbar, Typography, IconButton, Grid, Card, CardMedia, CardContent, CircularProgress, fade, TextField, Avatar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from "@material-ui/icons/Search";
 import { toFirstCharUppercase } from "../Constants";
-import { deepPurple } from '@material-ui/core/colors';
 import axios from "axios";
+import Pagination from './Button';
 
 const Nav = (props) => {
 
@@ -47,48 +46,77 @@ const Nav = (props) => {
             width: "200px",
             margin: "5px",
         },
-        purple: {
-            color: theme.palette.getContrastText(deepPurple[500]),
-            backgroundColor: deepPurple[500],
-        },
+
+      
     }));
 
     const classes = useStyles();
     const { history } = props;
-    const [pokemonData, setPokemonData] = useState({});
-    const [filter,setFilter] = useState("");
+    const [pokemon, setPokemon] = useState([]);
+    const [filter, setFilter] = useState("");
+    const [currentPageUrl, setCurrentPageUrl] = useState("https://pokeapi.co/api/v2/pokemon?")
+    const [nextPageUrl, setNextPageUrl] = useState()
+    const [prevPageUrl, setPrevPageUrl] = useState()
+     const [loading, setLoading] = useState(true)
+    const [number, setNumber] = useState(0);
 
-    useEffect(() => {
-        axios
-            .get(`https://pokeapi.co/api/v2/pokemon?limit=807`)
-            .then(function (response) {
+    const fetchData = useCallback(
+        () => {
+            axios
+            .get(currentPageUrl)
+            .then(response => {
                 const { data } = response;
                 const { results } = data;
-                const newPokemonData = {};
-                results.forEach((pokemon, index) => {
-                    newPokemonData[index + 1] = {
-                        id: index + 1,
+                const newPokemonData = [];
+                // setLoading(false)
+                setNextPageUrl(response.data.next)
+                setPrevPageUrl(response.data.previous)
+                let num = number
+                results.forEach((pokemon) => {
+                    newPokemonData[num + 1] = {
+                        id: num + 1,
                         name: pokemon.name,
-                        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1
+                        sprites: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${num + 1
                             }.png`,
                     };
-                });
-                setPokemonData(newPokemonData);
+                    num++;
+                });          
+                setNumber(num);
+                setPokemon(newPokemonData);
             });
-    }, []);
+        },
+        [currentPageUrl],
+    )
+
+    useEffect(() => {
+        // setLoading(true);
+        fetchData();
+    },[fetchData]);
+
+    function gotoNextPage() {
+        setCurrentPageUrl(nextPageUrl)
+    }
+
+    function gotoPrevPage() {
+        setCurrentPageUrl(prevPageUrl)
+    }
+
+//   if (loading) return "Loading..."
 
     const handleSearchChange = (e) => {
         setFilter(e.target.value);
     };
 
     const getPokemonCard = (pokemonId) => {
-        const { id, name, sprite } = pokemonData[pokemonId];
+        const { id, name, sprites } = pokemon[pokemonId];
+
+
         return (
             <Grid item xs={4} key={pokemonId}>
                 <Card onClick={() => history.push(`/${id}`)}>
                     <CardMedia
                         className={classes.cardMedia}
-                        image={sprite}
+                        image={sprites}
                         style={{ width: "130px", height: "130px" }}
                     />
                     <CardContent className={classes.cardContent}>
@@ -111,22 +139,29 @@ const Nav = (props) => {
                         <Typography variant="h6" className={classes.title}>
                             Pokemon
             </Typography>
-                        <SearchIcon className={classes.searchIcon} />
-                        <TextField
+                        <SearchIcon className={classes.searchIcon} style={{ marginBottom: 20 }} />
+                        <TextField style={{ marginBottom: 20, marginRight: 550 }}
+                            fullWidth
                             className={classes.searchInput}
                             onChange={handleSearchChange}
                             label="Pokemon"
                             variant="standard"
                         />
+                        <Avatar>H</Avatar>
                     </Toolbar>
                 </AppBar>
-                {pokemonData ? (
+                {pokemon ? (
                     <Grid container spacing={2} className={classes.pokedexContainer}>
-                        {Object.keys(pokemonData).map(
+
+                        {Object.keys(pokemon).map(
                             (pokemonId) =>
-                                pokemonData[pokemonId].name.includes(filter) &&
+                                pokemon[pokemonId].name.includes(filter) &&
                                 getPokemonCard(pokemonId)
                         )}
+                        <Pagination
+                            gotoNextPage={nextPageUrl ? gotoNextPage : null}
+                            gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
+                        />
                     </Grid>
                 ) : (
                         <CircularProgress />
@@ -135,5 +170,4 @@ const Nav = (props) => {
         </div>
     );
 }
-
 export default Nav;

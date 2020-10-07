@@ -12,20 +12,20 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Switch>   
+      <Switch>
         <>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/term" component={Term} />
-            <Route exact path="/home" render={(props) => <Nav1 {...props} />} />
-            <Route
-              exact
-              path="/:pokemonId"
-              render={(props) => <Pokemon {...props} />}
-            />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/forgotpassword" component={ForgotPassword} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/term" component={Term} />
+          <Route exact path="/home" render={(props) => <Nav1 {...props} />} />
+          <Route
+            exact
+            path="/:pokemonId"
+            render={(props) => <Pokemon {...props} />}
+          />
         </>
-        </Switch>
+      </Switch>
 
     </Router>
 

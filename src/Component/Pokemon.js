@@ -54,7 +54,7 @@ const Pokemon = (props) => {
         <>
             {pokemon === undefined && <CircularProgress />}
             {pokemon !== undefined && pokemon && generatePokemonJSX(pokemon)}
-            {pokemon === false && <Typography> Pokemon not found</Typography>}
+            {/* {pokemon === false && <Typography> Pokemon not found</Typography>} */}
             {pokemon !== undefined && (
                 <Button variant="contained" onClick={() => history.push("/home")}>
                     back to pokedex
